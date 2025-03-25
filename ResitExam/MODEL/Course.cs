@@ -8,6 +8,7 @@ public class Course
     public string CourseCode { get; set; }
     public string CourseName { get; set; }
     public Instructor AssignedInstructor { get; set; }
-    public bool IsTheResitExamActive { get; set; }
+    public List<Grade> Grades { get; set; }
+    public bool MakeUpExamIsActive { get; set; }
 
 }

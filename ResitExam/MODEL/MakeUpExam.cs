@@ -8,9 +8,8 @@ namespace ResitExam.MODEL
         public int ExamID { get; set; }
         public string CourseCode { get; set; }
         public string ExamDetails { get; set; }
-        public DateTime ExamTime { get; set; }
-        
-        public List<Student> Students { get; set; }//deneme
+        public DateTime ExamTime { get; set; }   
+        /*public List<Student> MakeUpExamStudents { get; set; }*///deneme
 
     }
 }

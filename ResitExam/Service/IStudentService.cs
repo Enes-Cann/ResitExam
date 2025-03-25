@@ -1,15 +1,8 @@
-﻿namespace ResitExam.Service
+﻿using ResitExam.DtoObj;
+
+namespace ResitExam.Service;
+
+public interface IStudentService
 {
-    public interface IStudentService
-    {
-        bool MakeUpExamRequest(int studentId, string courseCode);
-    }
-    public class StudentService : IStudentService
-    {
-        public bool MakeUpExamRequest(int studentId, string courseCode)
-        {
-            
-            return true;
-        }
-    }
+    bool MakeUpExamRequest(MakeUpExamRequestDto dto);
 }

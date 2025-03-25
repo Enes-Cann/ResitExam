@@ -16,7 +16,7 @@ namespace ResitExam.DATABASE.ClassRepos
 
         public Student GetById(int studentId)
         {
-            return _context.Students.Include(s=>s.Grades).FirstOrDefault(s => s.Id == studentId);
+            return _context.Students.Find(studentId);
         }
         public IEnumerable<Student> GetAll()
         {

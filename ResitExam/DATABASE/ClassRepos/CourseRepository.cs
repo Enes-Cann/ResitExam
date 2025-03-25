@@ -20,15 +20,13 @@ namespace ResitExam.DATABASE.ClassRepos
         {
             return _context.Courses.ToList();
         }
-        public void Add(string courseCode)
+        public void Add(Course course)
         {
-            var course = _context.Courses.Find(courseCode);
             _context.Courses.Add(course);
             _context.SaveChanges();
         }
-        public void Update(string courseCode)
+        public void Update(Course course)
         {
-            var course = _context.Courses.Find(courseCode);
             _context.Courses.Update(course);
             _context.SaveChanges();
         }

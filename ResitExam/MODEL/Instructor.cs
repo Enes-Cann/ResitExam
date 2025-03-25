@@ -1,13 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ResitExam.MODEL
+namespace ResitExam.MODEL;
+
+public class Instructor
 {
-    public class Instructor
-    {
-        [Key]
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Email { get; set; }
-        List<Course> Courses { get; set; }
-    }
+    [Key]
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public string Email { get; set; }
+    List<Course> Courses { get; set; }
 }
