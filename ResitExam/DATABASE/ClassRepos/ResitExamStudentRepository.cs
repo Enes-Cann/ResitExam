@@ -3,7 +3,7 @@ using ResitExam.MODEL;
 
 namespace ResitExam.DATABASE.ClassRepos
 {
-    public class MakeUpExamStudentRepository : IMakeUpExamStudentRepository
+    public class ResitExamStudentRepository : IResitExamStudentRepository
     {
         private readonly ApplicationDbContext _context;
 

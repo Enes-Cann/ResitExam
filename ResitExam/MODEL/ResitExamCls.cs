@@ -2,7 +2,7 @@
 
 namespace ResitExam.MODEL
 {
-    public class MakeUpExam
+    public class ResitExamCls
     {
         [Key]
         public int ExamID { get; set; }

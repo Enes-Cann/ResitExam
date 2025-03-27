@@ -20,7 +20,7 @@ builder.Services.AddScoped<IStudentService, MakeUpExamStudentRegisterService>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 //builder.Services.AddScoped<IMakeUpExamCourseRepository, MakeUpExamCourseRepository>();
-builder.Services.AddScoped<IMakeUpExamStudentRepository, MakeUpExamStudentRepository>();
+builder.Services.AddScoped<ResitExamStudentRepository, ResitExamStudentRepository>();
 
 var app = builder.Build();
 

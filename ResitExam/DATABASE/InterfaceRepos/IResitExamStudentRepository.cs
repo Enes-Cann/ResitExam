@@ -2,7 +2,7 @@
 
 namespace ResitExam.DATABASE.InterfaceRepos
 {
-    public interface IMakeUpExamStudentRepository
+    public interface IResitExamStudentRepository
     {
         void Add(Student student);
         void Update(Student student);

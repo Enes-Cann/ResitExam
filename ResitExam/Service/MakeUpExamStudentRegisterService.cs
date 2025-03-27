@@ -9,7 +9,7 @@ public class MakeUpExamStudentRegisterService : IStudentService
     private readonly IStudentRepository _studentRepository;
     private readonly ICourseRepository _courseRepository;
     //private readonly IMakeUpExamCourseRepository _makeUpExamCourseRepository;
-    private readonly IMakeUpExamStudentRepository _makeUpExamStudentRepository;
+    private readonly IResitExamStudentRepository _makeUpExamStudentRepository;
     private readonly ApplicationDbContext applicationDbContext;
 
     public MakeUpExamStudentRegisterService(IStudentRepository studentRepository, ICourseRepository courseRepository)
