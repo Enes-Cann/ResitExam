@@ -22,21 +22,52 @@ namespace ResitExam.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
+            modelBuilder.Entity("CourseStudent", b =>
+                {
+                    b.Property<int>("CoursesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StudentsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CoursesId", "StudentsId");
+
+                    b.HasIndex("StudentsId");
+
+                    b.ToTable("CourseStudent");
+                });
+
             modelBuilder.Entity("ResitExam.MODEL.Course", b =>
                 {
-                    b.Property<string>("CourseCode")
-                        .HasColumnType("varchar(255)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                    b.Property<string>("CourseName")
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Announcements")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("CourseCode")
                         .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<int>("InstructorId")
                         .HasColumnType("int");
 
-                    b.HasKey("CourseCode");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("ResitExamId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("InstructorId");
+
+                    b.HasIndex("ResitExamId");
 
                     b.ToTable("Courses");
                 });
@@ -62,13 +93,13 @@ namespace ResitExam.Migrations
                     b.ToTable("Instructors");
                 });
 
-            modelBuilder.Entity("ResitExam.MODEL.ResitExamCls", b =>
+            modelBuilder.Entity("ResitExam.MODEL.ResitExamObj", b =>
                 {
-                    b.Property<int>("ExamID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("ExamID"));
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CourseCode")
                         .IsRequired()
@@ -81,7 +112,10 @@ namespace ResitExam.Migrations
                     b.Property<DateTime>("ExamTime")
                         .HasColumnType("datetime(6)");
 
-                    b.HasKey("ExamID");
+                    b.Property<int>("Grade")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
 
                     b.ToTable("ResitExams");
                 });
@@ -94,11 +128,10 @@ namespace ResitExam.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<bool>("CanTakeTheExam")
+                        .HasColumnType("tinyint(1)");
 
-                    b.Property<string>("Grade")
+                    b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("longtext");
 
@@ -106,7 +139,7 @@ namespace ResitExam.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<bool>("ResitEligibility")
+                    b.Property<bool>("WillTakeTheExam")
                         .HasColumnType("tinyint(1)");
 
                     b.HasKey("Id");
@@ -114,15 +147,43 @@ namespace ResitExam.Migrations
                     b.ToTable("Students");
                 });
 
+            modelBuilder.Entity("CourseStudent", b =>
+                {
+                    b.HasOne("ResitExam.MODEL.Course", null)
+                        .WithMany()
+                        .HasForeignKey("CoursesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ResitExam.MODEL.Student", null)
+                        .WithMany()
+                        .HasForeignKey("StudentsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("ResitExam.MODEL.Course", b =>
                 {
-                    b.HasOne("ResitExam.MODEL.Instructor", "AssignedInstructor")
-                        .WithMany()
+                    b.HasOne("ResitExam.MODEL.Instructor", "Instructor")
+                        .WithMany("Courses")
                         .HasForeignKey("InstructorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("AssignedInstructor");
+                    b.HasOne("ResitExam.MODEL.ResitExamObj", "ResitExam")
+                        .WithMany()
+                        .HasForeignKey("ResitExamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Instructor");
+
+                    b.Navigation("ResitExam");
+                });
+
+            modelBuilder.Entity("ResitExam.MODEL.Instructor", b =>
+                {
+                    b.Navigation("Courses");
                 });
 #pragma warning restore 612, 618
         }

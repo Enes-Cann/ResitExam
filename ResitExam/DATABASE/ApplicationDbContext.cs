@@ -10,8 +10,7 @@ namespace ResitExam.DATABASE
         public DbSet<Student> Students { get; set; }
         public DbSet<Instructor> Instructors { get; set; }
         public DbSet<Course> Courses { get; set; }
-        public DbSet<ResitExamCls> ResitExams { get; set; }
-        public DbSet<Grade> Grades { get; set; }
+        public DbSet<ResitExamObj> ResitExams { get; set; }
 
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{

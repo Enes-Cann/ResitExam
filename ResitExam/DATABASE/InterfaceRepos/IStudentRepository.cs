@@ -4,10 +4,10 @@ namespace ResitExam.DATABASE.InterfaceRepos
 {
     public interface IStudentRepository
     {
-        Student GetById(int studentId);
+        Student GetById(int id);
         IEnumerable<Student> GetAll();
-        void Add(int studentId);
-        void Update(int studentId);
-        void Delete(int studentId);
+        void Add(int id);
+        void Update(int id);
+        void Delete(int id);
     }
 }
