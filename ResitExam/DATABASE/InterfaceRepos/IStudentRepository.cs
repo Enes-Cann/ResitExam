@@ -6,8 +6,8 @@ namespace ResitExam.DATABASE.InterfaceRepos
     {
         Student GetById(int id);
         IEnumerable<Student> GetAll();
-        void Add(int id);
-        void Update(int id);
+        void Add(Student student);
+        void Update(Student student);
         void Delete(int id);
     }
 }

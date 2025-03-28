@@ -9,6 +9,6 @@ public class Student
     public string Email             { get; set; }
     //public bool WillTakeTheExam     { get; set; }
     //public bool CanTakeTheExam      { get; set; }
-    public List<Course> Courses     { get; set; }
-    public List<ResitExamObj> TakenResitExam { get; set; }
+    public List<Course> Courses { get; set; } = [];
+    public List<ResitExamObj> TakenResitExam { get; set; } = [];
 }

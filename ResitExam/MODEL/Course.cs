@@ -11,6 +11,6 @@ public class Course
     public string Announcements   { get; set; }
     public Instructor Instructor  { get; set; }
     public ResitExamObj ResitExam { get; set; }
-    public List<Student> Students { get; set; }
+    public List<Student> Students { get; set; } = [];
     public bool HasResitExam      { get; set; }
 }

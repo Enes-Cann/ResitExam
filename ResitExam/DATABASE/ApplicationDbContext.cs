@@ -12,12 +12,15 @@ namespace ResitExam.DATABASE
         public DbSet<Course> Courses { get; set; }
         public DbSet<ResitExamObj> ResitExams { get; set; }
 
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
 
-        //    base.OnModelCreating(modelBuilder);
-        //    // Veritabanı yapılandırmalarını burada yapabilirsin (opsiyonel)
-        //}
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Student>().HasMany<Course>(s => s.Courses).WithMany(c => c.Students);
+            modelBuilder.Entity<Course>().HasOne<Instructor>(c => c.Instructor).WithMany(i => i.Courses);
+
+            // Veritabanı yapılandırmalarını burada yapabilirsin (opsiyonel)
+        }
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{

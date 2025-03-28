@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ResitExam.CONTROLLERS.Service;
 using ResitExam.DtoObj;
+using ResitExam.MODEL;
 
 namespace ResitExam.CONTROLLERS.Controllers
 {
@@ -15,20 +16,32 @@ namespace ResitExam.CONTROLLERS.Controllers
         {
             _studentService = studentService;
         }
-
-        [HttpPost("ResitExamRequest")]
-        public IActionResult ResitExamRequest([FromBody] ResitExamRequestDto dto) //Dtoda bulunur "int StudentId -- string CourseCode"
-
+        [HttpPost("GetAllCoursesByStudent")]
+        public IActionResult ResitExamRequest([FromBody] GetAllCoursesRequest dto) //Dtoda bulunur "int StudentId -- string CourseCode"
         {
-            var response = _studentService.ResitExamRequest(dto);
-            if (response)
-            {
-                return Ok();
-            }
-            else
-            {
-                return BadRequest();
-            }
+            return Ok(_studentService.GetAllCoursesListByStudent(dto.StudentId));
+            //if (response)
+            //{
+            //    return Ok();
+            //}
+            //else
+            //{
+            //    return BadRequest();
+            //}
         }
+        //[HttpPost("RemoveResitExamFromStudent")]
+        //public IActionResult ResitExamRequest([FromBody] GetAllCoursesRequest dto) //Dtoda bulunur "int StudentId -- string CourseCode"
+        //{
+        //    var response = _studentService.GetResitExamListByStudent(dto.StudentId, dto.CourseId);
+        //    if (response)
+        //    {
+        //        return Ok();
+        //    }
+        //    else
+        //    {
+        //        return BadRequest();
+        //    }
+        //}
+
     }
 }

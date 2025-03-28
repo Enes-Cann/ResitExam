@@ -5,6 +5,6 @@ namespace ResitExam.CONTROLLERS.Service;
 
 public interface IStudentService
 {
-    List<Course> GetStudentCourseRequest(int studentId);
-    void AssignResitExamToStudent(int studentId, int courseId);
+    List<Course> GetAllCoursesListByStudent(int studentId);
+    bool RemoveResitExamFromStudent(int studentId, int courseId);
 }

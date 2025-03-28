@@ -1,9 +1,8 @@
 ﻿namespace ResitExam.DtoObj;
 
-public class ResitExamRequestDto
+public class GetAllCoursesRequest
 {
     public int StudentId { get; set; }
-    public int CourseId { get; set; }
 }
 
 //TODO Yukarıdaki sınıf kaldırılacak.
