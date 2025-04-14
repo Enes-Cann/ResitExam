@@ -1,8 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ResitExam.CONTROLLERS.Service;
-using ResitExam.DtoObj;
-using ResitExam.MODEL;
 
 namespace ResitExam.CONTROLLERS.Controllers
 {
@@ -16,10 +13,11 @@ namespace ResitExam.CONTROLLERS.Controllers
         {
             _studentService = studentService;
         }
-        [HttpPost("GetAllCoursesByStudent")]
-        public IActionResult ResitExamRequest([FromBody] GetAllCoursesRequest dto) //Dtoda bulunur "int StudentId -- string CourseCode"
+        
+        [HttpGet("GetAllCoursesByStudent")]
+        public IActionResult GetAllCoursesByStudentRequest([FromQuery] int studentId) //Dtoda bulunur "int StudentId -- string CourseCode"
         {
-            return Ok(_studentService.GetAllCoursesListByStudent(dto.StudentId));
+            return Ok(_studentService.GetAllCoursesListByStudent(studentId));
           
         }
        
