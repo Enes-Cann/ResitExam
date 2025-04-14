@@ -20,28 +20,9 @@ namespace ResitExam.CONTROLLERS.Controllers
         public IActionResult ResitExamRequest([FromBody] GetAllCoursesRequest dto) //Dtoda bulunur "int StudentId -- string CourseCode"
         {
             return Ok(_studentService.GetAllCoursesListByStudent(dto.StudentId));
-            //if (response)
-            //{
-            //    return Ok();
-            //}
-            //else
-            //{
-            //    return BadRequest();
-            //}
+          
         }
-        //[HttpPost("RemoveResitExamFromStudent")]
-        //public IActionResult ResitExamRequest([FromBody] GetAllCoursesRequest dto) //Dtoda bulunur "int StudentId -- string CourseCode"
-        //{
-        //    var response = _studentService.GetResitExamListByStudent(dto.StudentId, dto.CourseId);
-        //    if (response)
-        //    {
-        //        return Ok();
-        //    }
-        //    else
-        //    {
-        //        return BadRequest();
-        //    }
-        //}
+       
 
     }
 }
