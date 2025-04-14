@@ -1,14 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿
+using System.ComponentModel.DataAnnotations;
 
 namespace ResitExam.MODEL;
 
 public class Course
 {
-    [Key]
-    public string CourseCode { get; set; }
-    public string CourseName { get; set; }
-    public Instructor AssignedInstructor { get; set; }
-    public List<Grade> Grades { get; set; }
-    public bool MakeUpExamIsActive { get; set; }
-
+    public int Id                 { get; set; }
+    public string CourseCode      { get; set; }
+    public string Name            { get; set; }
+    public string Announcements   { get; set; }
+    public Instructor Instructor  { get; set; }
+    public ResitExamObj ResitExam { get; set; }
+    public List<Student> Students { get; set; } = [];
+    public bool HasResitExam      { get; set; }
 }
