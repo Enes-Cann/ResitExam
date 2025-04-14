@@ -16,6 +16,7 @@ namespace ResitExam.DATABASE
         {
 
             base.OnModelCreating(modelBuilder);
+            
             modelBuilder.Entity<Student>().HasMany<Course>(s => s.Courses).WithMany(c => c.Students);
             modelBuilder.Entity<Course>().HasOne<Instructor>(c => c.Instructor).WithMany(i => i.Courses);
             modelBuilder.Entity<Course>().HasMany<Student>(s => s.Students).WithMany(c => c.Courses);

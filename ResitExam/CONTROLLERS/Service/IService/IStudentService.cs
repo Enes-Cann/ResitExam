@@ -6,5 +6,5 @@ namespace ResitExam.CONTROLLERS.Service;
 public interface IStudentService
 {
     List<Course> GetAllCoursesListByStudent(int studentId);
-    bool RemoveResitExamFromStudent(int studentId, int courseId);
+    //bool RemoveResitExamFromStudent(int studentId, int courseId);
 }

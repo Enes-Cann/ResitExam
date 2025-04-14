@@ -20,12 +20,12 @@ public class StudentService(IStudentRepository studentRepository) : IStudentServ
             .GetById(studentId).Courses;
     }
 
-    public bool RemoveResitExamFromStudent(int studentId, int courseId)
-    {
-        var student = _studentRepository
-            .GetById(studentId);
-        student.TakenResitExam.RemoveAll(x => x.CourseId == courseId);
-        _studentRepository.Update(student);
-        return true;
-    }
+    //public bool RemoveResitExamFromStudent(int studentId, int courseId)
+    //{
+    //    var student = _studentRepository
+    //        .GetById(studentId);
+    //    student.TakenResitExam.RemoveAll(x => x.CourseId == courseId);
+    //    _studentRepository.Update(student);
+    //    return true;
+    //}
 }

@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ResitExam.CONTROLLERS.Service;
+using ResitExam.CONTROLLERS.Service.IService;
 using ResitExam.DATABASE;
 using ResitExam.DATABASE.ClassRepos;
 using ResitExam.DATABASE.InterfaceRepos;
@@ -21,10 +22,14 @@ builder.Services.AddControllers().AddJsonOptions(x =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddScoped<IInstructorService, InstructorService>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 builder.Services.AddScoped<IResitExamRepository, ResitExamRepository>();
+builder.Services.AddScoped<IInstructorRepository, InstructorRepository>();
+
 
 var app = builder.Build();
 

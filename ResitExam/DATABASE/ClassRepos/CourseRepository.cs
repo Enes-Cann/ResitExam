@@ -1,4 +1,5 @@
-﻿using ResitExam.DATABASE.InterfaceRepos;
+﻿using Microsoft.EntityFrameworkCore;
+using ResitExam.DATABASE.InterfaceRepos;
 using ResitExam.MODEL;
 
 namespace ResitExam.DATABASE.ClassRepos;
@@ -14,7 +15,9 @@ public class CourseRepository:ICourseRepository
 
     public Course GetById(int id)
     {
-        return _context.Courses.Find(id);
+        return _context.Courses.First(c => c.Id == id);
+
+        /*.Find(id);*/
     }
 
     public IEnumerable<Course> GetAll()
@@ -22,9 +25,8 @@ public class CourseRepository:ICourseRepository
         return _context.Courses.ToList();
     }
 
-    public void Add(int id)
+    public void Add(Course course)
     {
-        var course = _context.Courses.Find(id);
         _context.Courses.Add(course);
         _context.SaveChanges();
     }
