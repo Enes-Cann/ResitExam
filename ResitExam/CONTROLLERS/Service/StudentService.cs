@@ -1,16 +1,19 @@
-﻿using ResitExam.DATABASE.InterfaceRepos;
+﻿using ResitExam.AltSınıflar;
+using ResitExam.DATABASE.InterfaceRepos;
 using ResitExam.MODEL;
 
 namespace ResitExam.CONTROLLERS.Service;
 /// <summary>
 /// Öğrenci ile ilgili bütün işlemleri yöneten servis.
 /// </summary>
-public class StudentService(IStudentRepository studentRepository) : IStudentService
+public class StudentService(IStudentRepository studentRepository,
+                            ICourseRepository courseRepository) : IStudentService
 {
     private readonly IStudentRepository _studentRepository = studentRepository;
+    private readonly ICourseRepository  _courseRepository  = courseRepository;
 
     /// <summary>
-    /// Bilgisi verilen öğrencinin bütün derslerini listeler.
+    /// IDsi verilen öğrencinin derslerini listeler.
     /// </summary>
     /// <param name="Student">Verileri talep edilen öğrenci</param>
     /// <returns>Ders Listesi</returns>
@@ -19,13 +22,55 @@ public class StudentService(IStudentRepository studentRepository) : IStudentServ
         return _studentRepository
             .GetById(studentId).Courses;
     }
+    /// <summary>
+    /// Öğrenciye ders ekleme işlemi
+    /// </summary>
+    /// <param name="studentId"></param>
+    /// <param name="courseId"></param>
+    public void AddCourseByStudentId(int studentId, int courseId)
+    {
+       
+        var student = _studentRepository.GetById(studentId);
+        var course = _courseRepository.GetById(courseId);
+        student.Courses.Add(course);
+        _studentRepository.Update(student);
+    }
+    /// <summary>
+    /// Öğrencinin aldığı derslerin notlarını kontrol eder ve
+    /// notuna göre ResitExam butonunu pasifleştirir.
+    /// </summary>
+    /// <param name="studentId"></param>
+    //EndPointi Yok çünkü bir swagger sorgusu değil.
+    public void IsStudentTakeResitExam(int studentId)
+    {
+      
+        var studentCourses=_studentRepository
+            .GetById(studentId).Courses;
+        
+        foreach (var course in studentCourses)
+        {
+            if (course.FinalGrade == Grade.AA)
+            {
+                course.HasResitExamButton = false;
+            }
+           else if (course.FinalGrade == Grade.AB)
+            {
+                course.HasResitExamButton = false;
+            }
+            else if (course.FinalGrade == Grade.BB)
+            {
+                course.HasResitExamButton = false;
+            }
+            else if (course.FinalGrade == Grade.BC)
+            {
+                course.HasResitExamButton = false;
+            }
+            else
+            {
+                course.HasResitExamButton = true;
+            }
+        }
+        
+    }
 
-    //public bool RemoveResitExamFromStudent(int studentId, int courseId)
-    //{
-    //    var student = _studentRepository
-    //        .GetById(studentId);
-    //    student.TakenResitExam.RemoveAll(x => x.CourseId == courseId);
-    //    _studentRepository.Update(student);
-    //    return true;
-    //}
 }

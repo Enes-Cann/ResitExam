@@ -13,7 +13,11 @@ namespace ResitExam.CONTROLLERS.Controllers
         {
             _courseService = courseService;
         }
-
+        /// <summary>
+        /// Kursa duyuru ekleme işlemi
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost("AddAnnouncementToCourse")]
         public IActionResult AddAnnouncementToCourse([FromBody] AddAnnouncementRequest request)
         {
@@ -21,10 +25,15 @@ namespace ResitExam.CONTROLLERS.Controllers
             if(addResult) return Ok("Announcement added successfully.");
             else return BadRequest("Failed to add announcement.");
         }
+        /// <summary>
+        /// Kurs ekleme işlemi
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost("AddCourse")]
         public IActionResult AddCourse([FromBody] AddCourseRequest request)
         {
-            var addResult = _courseService.AddCourse(request.Name,request.Code,request.InstructorId,request.HasResitExam);
+            var addResult = _courseService.AddCourse(request.Name,request.Code,request.InstructorId,request.FinalGrade, request.HasResitExam);
             if (addResult) return Ok("Course added successfully.");
             else return BadRequest("Failed to add course.");
         }
