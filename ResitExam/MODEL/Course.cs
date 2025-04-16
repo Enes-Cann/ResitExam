@@ -14,8 +14,7 @@ public class Course
     public ResitExamObj ResitExam       { get; set; }
     public List<Student> Students       { get; set; } = [];
     public Grade? FinalGrade            { get; set; }
-    public bool HasResitExamButton { get; set; } = true;
-
+    public bool HasResitExamButton      { get; set; } = true;
    
 
 
