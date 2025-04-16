@@ -1,5 +1,6 @@
 ﻿using ResitExam.AltSınıflar;
 using ResitExam.CONTROLLERS.Service.IService;
+using ResitExam.DATABASE.ClassRepos;
 using ResitExam.DATABASE.InterfaceRepos;
 using ResitExam.MODEL;
 
@@ -50,7 +51,15 @@ namespace ResitExam.CONTROLLERS.Service
             _courseRepository.Update(courseId);
             return true;
         }
-
-       
+      
+        /// Kurs ID'sine göre öğrenci listesini döndürür.
+        /// </summary>
+        /// <param name="courseId"></param>
+        /// <returns></returns>
+        public List<Student> GetStudentListByCourseId(int courseId)
+        {
+            return _courseRepository
+                .GetById(courseId).Students.ToList();
+        }
     }    
 }

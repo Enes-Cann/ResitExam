@@ -7,5 +7,7 @@ namespace ResitExam.CONTROLLERS.Service.IService
     {
         bool AddAnnouncementToCourseByCourseID(string announcement,int courseId);
         bool AddCourse(string name, string code, int instructorId,Grade finalGrade, bool hasResitExam);
+        List<Student> GetStudentListByCourseId(int courseId);
+
     }
 }

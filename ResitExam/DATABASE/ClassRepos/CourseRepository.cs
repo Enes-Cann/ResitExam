@@ -15,7 +15,8 @@ public class CourseRepository:ICourseRepository
 
     public Course GetById(int id)
     {
-        return _context.Courses.First(c => c.Id == id);
+        return _context.Courses.Include(x=>x.Students)
+            .First(c => c.Id == id);
 
         /*.Find(id);*/
     }

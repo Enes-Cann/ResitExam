@@ -37,6 +37,6 @@ namespace ResitExam.CONTROLLERS.Controllers
             return Ok("Course added successfully.");
         }
 
-
+        //TODO:ResitExam butondan gelen değere göre resit exam list oluşturalacak
     }
 }
