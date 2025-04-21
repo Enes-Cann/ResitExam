@@ -17,7 +17,7 @@ public class ResitExamObj
     public DateTime? ExamTime   { get; set; }
     //public List<Student> Students { get; set; } = [];
 
-    //ali öğretmenin matematik dersinin büt sınavının öğrencileri 
+    //ali öğretmenin matematik dersinin büt sınavının öğrencileri d
 
 
 }
