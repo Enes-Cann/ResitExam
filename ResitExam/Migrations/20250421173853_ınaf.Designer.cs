@@ -12,8 +12,8 @@ using ResitExam.DATABASE;
 namespace ResitExam.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250421133338_v2089")]
-    partial class v2089
+    [Migration("20250421173853_ınaf")]
+    partial class ınaf
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

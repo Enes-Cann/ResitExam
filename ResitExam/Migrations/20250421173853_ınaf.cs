@@ -5,7 +5,7 @@
 namespace ResitExam.Migrations
 {
     /// <inheritdoc />
-    public partial class v2089 : Migration
+    public partial class ınaf : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
