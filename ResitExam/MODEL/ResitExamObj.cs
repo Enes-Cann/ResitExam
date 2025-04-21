@@ -11,9 +11,13 @@ public class ResitExamObj
 {
     public int Id               { get; set; }
     public int CourseId         { get; set; }
-    public string ExamDetails   { get; set; }
-    public DateTime? ExamTime    { get; set; }
-    public Grade? Grade { get; set; }
-    public int StudentId { get; set; }
-    //public Course Course        { get; set; }
+    public int StudentId        { get; set; }//TODO: resitexamın student ıd tutmayacak değiştirilecek
+         //stirng Announcement
+    public string ExamDetails   { get; set; }//TODO: ExamDetails announcemente benzetilecek
+    public DateTime? ExamTime   { get; set; }
+    //public List<Student> Students { get; set; } = [];
+
+    //ali öğretmenin matematik dersinin büt sınavının öğrencileri 
+
+
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ResitExam.DATABASE;
 
@@ -11,9 +12,11 @@ using ResitExam.DATABASE;
 namespace ResitExam.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250415121817_v90")]
+    partial class v90
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,6 +48,10 @@ namespace ResitExam.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Announcements")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<string>("CourseCode")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -52,7 +59,7 @@ namespace ResitExam.Migrations
                     b.Property<int?>("FinalGrade")
                         .HasColumnType("int");
 
-                    b.Property<bool?>("HasResitExamButton")
+                    b.Property<bool>("HasResitExam")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<int>("InstructorId")
@@ -107,6 +114,9 @@ namespace ResitExam.Migrations
 
                     b.Property<DateTime?>("ExamTime")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("Grade")
+                        .HasColumnType("int");
 
                     b.Property<int>("StudentId")
                         .HasColumnType("int");

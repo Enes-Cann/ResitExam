@@ -2,7 +2,7 @@
 using ResitExam.MODEL;
 namespace ResitExam.DATABASE
 {
-    public class ApplicationDbContext :DbContext
+    public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
@@ -16,17 +16,13 @@ namespace ResitExam.DATABASE
         {
 
             base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Student>().HasMany<Course>(s => s.Courses).WithMany(c => c.Students);
             modelBuilder.Entity<Course>().HasOne<Instructor>(c => c.Instructor).WithMany(i => i.Courses);
             modelBuilder.Entity<Course>().HasMany<Student>(s => s.Students).WithMany(c => c.Courses);
-            // Veritabanı yapılandırmalarını burada yapabilirsin (opsiyonel)
+            //modelBuilder.Entity<Student<>().HasMany<ResitExamObj>(s => s.ResitExams).WithOne(r => r.Student);
+            
         }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    base.OnConfiguring(optionsBuilder);
-        //    optionsBuilder.UseMySql(ServerVersion.AutoDetect("server=localhost;uid=root;pwd=1234;database=ResitExam;"));
-
-        //}
-    }
+    }    
 }
