@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ResitExam.DATABASE;
 
@@ -11,9 +12,11 @@ using ResitExam.DATABASE;
 namespace ResitExam.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250421115334_v203")]
+    partial class v203
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,6 +48,10 @@ namespace ResitExam.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Announcements")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<string>("CourseCode")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -52,7 +59,7 @@ namespace ResitExam.Migrations
                     b.Property<int?>("FinalGrade")
                         .HasColumnType("int");
 
-                    b.Property<bool?>("HasResitExamButton")
+                    b.Property<bool>("HasResitExamButton")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<int>("InstructorId")
@@ -108,6 +115,9 @@ namespace ResitExam.Migrations
                     b.Property<DateTime?>("ExamTime")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<int?>("ResitGrade")
+                        .HasColumnType("int");
+
                     b.Property<int>("StudentId")
                         .HasColumnType("int");
 
@@ -135,7 +145,12 @@ namespace ResitExam.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<int?>("ResitExamObjId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ResitExamObjId");
 
                     b.ToTable("Students");
                 });
@@ -175,6 +190,13 @@ namespace ResitExam.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("ResitExam.MODEL.Student", b =>
+                {
+                    b.HasOne("ResitExam.MODEL.ResitExamObj", null)
+                        .WithMany("Students")
+                        .HasForeignKey("ResitExamObjId");
+                });
+
             modelBuilder.Entity("ResitExam.MODEL.Course", b =>
                 {
                     b.Navigation("ResitExam")
@@ -184,6 +206,11 @@ namespace ResitExam.Migrations
             modelBuilder.Entity("ResitExam.MODEL.Instructor", b =>
                 {
                     b.Navigation("Courses");
+                });
+
+            modelBuilder.Entity("ResitExam.MODEL.ResitExamObj", b =>
+                {
+                    b.Navigation("Students");
                 });
 #pragma warning restore 612, 618
         }

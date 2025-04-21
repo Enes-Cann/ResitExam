@@ -22,19 +22,7 @@ public class StudentService(IStudentRepository studentRepository,
         return _studentRepository
             .GetById(studentId).Courses;
     }
-    /// <summary>
-    /// Öğrenciye ders ekleme işlemi
-    /// </summary>
-    /// <param name="studentId"></param>
-    /// <param name="courseId"></param>
-    public void AddCourseByStudentId(int studentId, int courseId)
-    {
-       
-        var student = _studentRepository.GetById(studentId);
-        var course = _courseRepository.GetById(courseId);
-        student.Courses.Add(course);
-        _studentRepository.Update(student);
-    }
+
     /// <summary>
     /// Öğrencinin aldığı derslerin notlarını kontrol eder ve
     /// notuna göre ResitExam butonunu pasifleştirir.

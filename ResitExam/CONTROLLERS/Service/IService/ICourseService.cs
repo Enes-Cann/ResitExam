@@ -5,8 +5,7 @@ namespace ResitExam.CONTROLLERS.Service.IService
 {
     public interface ICourseService
     {
-        bool AddAnnouncementToCourseByCourseID(string announcement,int courseId);
-        bool AddCourse(string name, string code, int instructorId,Grade finalGrade, bool hasResitExam);
+        //bool AddAnnouncementToCourseByCourseID(string announcement, int courseId);
         List<Student> GetStudentListByCourseId(int courseId);
 
     }

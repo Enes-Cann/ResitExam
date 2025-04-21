@@ -24,18 +24,7 @@ namespace ResitExam.CONTROLLERS.Controllers
             return Ok(_studentService.GetAllCoursesListByStudent(studentId));
           
         }
-        /// <summary>
-        /// Öğrenciye ders ekleme işlemi EndPointi
-        /// </summary>
-        /// <param name="studentId"></param>
-        /// <param name="courseId"></param>
-        /// <returns></returns>
-        [HttpPost("AddCourseByStudentId")]
-        public IActionResult AddCourseByStudentId([FromQuery] int studentId, [FromQuery] int courseId)
-        {
-            _studentService.AddCourseByStudentId(studentId, courseId);
-            return Ok("Course added successfully.");
-        }
+       
 
         //TODO:ResitExam butondan gelen değere göre resit exam list oluşturalacak
     }
