@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ResitExam.DATABASE;
 
@@ -11,9 +12,11 @@ using ResitExam.DATABASE;
 namespace ResitExam.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250422123009_a34")]
+    partial class a34
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,7 +58,7 @@ namespace ResitExam.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("ResitExamObjId")
+                    b.Property<int?>("ResitExamObjId")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -199,15 +202,11 @@ namespace ResitExam.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ResitExam.MODEL.ResitExamObj", "ResitExamObj")
+                    b.HasOne("ResitExam.MODEL.ResitExamObj", null)
                         .WithMany("Announcements")
-                        .HasForeignKey("ResitExamObjId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ResitExamObjId");
 
                     b.Navigation("Course");
-
-                    b.Navigation("ResitExamObj");
                 });
 
             modelBuilder.Entity("ResitExam.MODEL.Course", b =>

@@ -10,7 +10,8 @@ public class Student
     public string Email             { get; set; }
     // int StudentId
     public List<Course> Courses     { get; set; } = [];
+    public List<ResitExamObj> ResitExams { get; set; } = [];
     //TODO:ResitExamListesi tutacak
-    
+
 
 }
