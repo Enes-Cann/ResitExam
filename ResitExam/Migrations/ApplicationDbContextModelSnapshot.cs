@@ -150,8 +150,6 @@ namespace ResitExam.Migrations
                     b.HasIndex("CourseId")
                         .IsUnique();
 
-                    b.HasIndex("StudentId");
-
                     b.ToTable("ResitExams");
                 });
 
@@ -174,6 +172,21 @@ namespace ResitExam.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Students");
+                });
+
+            modelBuilder.Entity("ResitExamObjStudent", b =>
+                {
+                    b.Property<int>("ResitExamsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StudentsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ResitExamsId", "StudentsId");
+
+                    b.HasIndex("StudentsId");
+
+                    b.ToTable("ResitExamObjStudent");
                 });
 
             modelBuilder.Entity("CourseStudent", b =>
@@ -228,14 +241,21 @@ namespace ResitExam.Migrations
                         .HasForeignKey("ResitExam.MODEL.ResitExamObj", "CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
 
-                    b.HasOne("ResitExam.MODEL.Student", "Student")
-                        .WithMany("ResitExams")
-                        .HasForeignKey("StudentId")
+            modelBuilder.Entity("ResitExamObjStudent", b =>
+                {
+                    b.HasOne("ResitExam.MODEL.ResitExamObj", null)
+                        .WithMany()
+                        .HasForeignKey("ResitExamsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Student");
+                    b.HasOne("ResitExam.MODEL.Student", null)
+                        .WithMany()
+                        .HasForeignKey("StudentsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ResitExam.MODEL.Course", b =>
@@ -252,11 +272,6 @@ namespace ResitExam.Migrations
             modelBuilder.Entity("ResitExam.MODEL.ResitExamObj", b =>
                 {
                     b.Navigation("Announcements");
-                });
-
-            modelBuilder.Entity("ResitExam.MODEL.Student", b =>
-                {
-                    b.Navigation("ResitExams");
                 });
 #pragma warning restore 612, 618
         }

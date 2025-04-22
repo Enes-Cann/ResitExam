@@ -21,7 +21,7 @@ namespace ResitExam.DATABASE
             modelBuilder.Entity<Student>().HasMany<Course>(s => s.Courses).WithMany(c => c.Students);
             modelBuilder.Entity<Course>().HasOne<Instructor>(c => c.Instructor).WithMany(i => i.Courses);
             modelBuilder.Entity<Course>().HasMany<Student>(s => s.Students).WithMany(c => c.Courses);
-            modelBuilder.Entity<ResitExamObj>().HasOne(r => r.Student).WithMany(s => s.ResitExams).HasForeignKey(r => r.StudentId);
+            modelBuilder.Entity<ResitExamObj>().HasMany(r => r.Students).WithMany(s => s.ResitExams);
             //modelBuilder.Entity<Student<>().HasMany<ResitExamObj>(s => s.ResitExams).WithOne(r => r.Student);
 
         }
