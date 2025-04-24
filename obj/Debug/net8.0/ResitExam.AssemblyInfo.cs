@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ResitExam")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bfee524c903708c7e578bfe5266c1931845adc77")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ba4f54b8afbef17cd93658f8bdcd1c357caf88f0")]
 [assembly: System.Reflection.AssemblyProductAttribute("ResitExam")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ResitExam")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
