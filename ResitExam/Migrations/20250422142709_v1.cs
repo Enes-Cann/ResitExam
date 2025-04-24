@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ResitExam.Migrations
 {
     /// <inheritdoc />
-    public partial class inital : Migration
+    public partial class v1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -59,10 +59,9 @@ namespace ResitExam.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Name = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Announcements = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
                     InstructorId = table.Column<int>(type: "int", nullable: false),
-                    HasResitExam = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                    FinalGrade = table.Column<int>(type: "int", nullable: true),
+                    HasResitExamButton = table.Column<bool>(type: "tinyint(1)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -110,8 +109,7 @@ namespace ResitExam.Migrations
                     CourseId = table.Column<int>(type: "int", nullable: false),
                     ExamDetails = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    ExamTime = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Grade = table.Column<int>(type: "int", nullable: false),
+                    ExamTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     StudentId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -123,14 +121,75 @@ namespace ResitExam.Migrations
                         principalTable: "Courses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Announcements",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Title = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Content = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    CourseId = table.Column<int>(type: "int", nullable: false),
+                    ResitExamObjId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Announcements", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ResitExams_Students_StudentId",
-                        column: x => x.StudentId,
+                        name: "FK_Announcements_Courses_CourseId",
+                        column: x => x.CourseId,
+                        principalTable: "Courses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Announcements_ResitExams_ResitExamObjId",
+                        column: x => x.ResitExamObjId,
+                        principalTable: "ResitExams",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "ResitExamObjStudent",
+                columns: table => new
+                {
+                    ResitExamsId = table.Column<int>(type: "int", nullable: false),
+                    StudentsId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ResitExamObjStudent", x => new { x.ResitExamsId, x.StudentsId });
+                    table.ForeignKey(
+                        name: "FK_ResitExamObjStudent_ResitExams_ResitExamsId",
+                        column: x => x.ResitExamsId,
+                        principalTable: "ResitExams",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ResitExamObjStudent_Students_StudentsId",
+                        column: x => x.StudentsId,
                         principalTable: "Students",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Announcements_CourseId",
+                table: "Announcements",
+                column: "CourseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Announcements_ResitExamObjId",
+                table: "Announcements",
+                column: "ResitExamObjId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Courses_InstructorId",
@@ -143,31 +202,37 @@ namespace ResitExam.Migrations
                 column: "StudentsId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ResitExamObjStudent_StudentsId",
+                table: "ResitExamObjStudent",
+                column: "StudentsId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ResitExams_CourseId",
                 table: "ResitExams",
                 column: "CourseId",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ResitExams_StudentId",
-                table: "ResitExams",
-                column: "StudentId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Announcements");
+
+            migrationBuilder.DropTable(
                 name: "CourseStudent");
+
+            migrationBuilder.DropTable(
+                name: "ResitExamObjStudent");
 
             migrationBuilder.DropTable(
                 name: "ResitExams");
 
             migrationBuilder.DropTable(
-                name: "Courses");
+                name: "Students");
 
             migrationBuilder.DropTable(
-                name: "Students");
+                name: "Courses");
 
             migrationBuilder.DropTable(
                 name: "Instructors");

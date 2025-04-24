@@ -12,8 +12,8 @@ using ResitExam.DATABASE;
 namespace ResitExam.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250421121531_v205")]
-    partial class v205
+    [Migration("20250422142709_v1")]
+    partial class v1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,6 +40,40 @@ namespace ResitExam.Migrations
                     b.ToTable("CourseStudent");
                 });
 
+            modelBuilder.Entity("ResitExam.MODEL.Announcement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("ResitExamObjId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("ResitExamObjId");
+
+                    b.ToTable("Announcements");
+                });
+
             modelBuilder.Entity("ResitExam.MODEL.Course", b =>
                 {
                     b.Property<int>("Id")
@@ -48,10 +82,6 @@ namespace ResitExam.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Announcements")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
                     b.Property<string>("CourseCode")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -59,7 +89,7 @@ namespace ResitExam.Migrations
                     b.Property<int?>("FinalGrade")
                         .HasColumnType("int");
 
-                    b.Property<bool>("HasResitExamButton")
+                    b.Property<bool?>("HasResitExamButton")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<int>("InstructorId")
@@ -147,6 +177,21 @@ namespace ResitExam.Migrations
                     b.ToTable("Students");
                 });
 
+            modelBuilder.Entity("ResitExamObjStudent", b =>
+                {
+                    b.Property<int>("ResitExamsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StudentsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ResitExamsId", "StudentsId");
+
+                    b.HasIndex("StudentsId");
+
+                    b.ToTable("ResitExamObjStudent");
+                });
+
             modelBuilder.Entity("CourseStudent", b =>
                 {
                     b.HasOne("ResitExam.MODEL.Course", null)
@@ -160,6 +205,25 @@ namespace ResitExam.Migrations
                         .HasForeignKey("StudentsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("ResitExam.MODEL.Announcement", b =>
+                {
+                    b.HasOne("ResitExam.MODEL.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ResitExam.MODEL.ResitExamObj", "ResitExamObj")
+                        .WithMany("Announcements")
+                        .HasForeignKey("ResitExamObjId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+
+                    b.Navigation("ResitExamObj");
                 });
 
             modelBuilder.Entity("ResitExam.MODEL.Course", b =>
@@ -182,6 +246,21 @@ namespace ResitExam.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("ResitExamObjStudent", b =>
+                {
+                    b.HasOne("ResitExam.MODEL.ResitExamObj", null)
+                        .WithMany()
+                        .HasForeignKey("ResitExamsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ResitExam.MODEL.Student", null)
+                        .WithMany()
+                        .HasForeignKey("StudentsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("ResitExam.MODEL.Course", b =>
                 {
                     b.Navigation("ResitExam")
@@ -191,6 +270,11 @@ namespace ResitExam.Migrations
             modelBuilder.Entity("ResitExam.MODEL.Instructor", b =>
                 {
                     b.Navigation("Courses");
+                });
+
+            modelBuilder.Entity("ResitExam.MODEL.ResitExamObj", b =>
+                {
+                    b.Navigation("Announcements");
                 });
 #pragma warning restore 612, 618
         }
