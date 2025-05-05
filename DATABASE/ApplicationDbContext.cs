@@ -28,7 +28,7 @@ namespace ResitExam.DATABASE
             
             modelBuilder.Entity<Role>().HasData(
         new Role { Id = 1, Name = "Student" },
-        new Role { Id = 2, Name = "Teacher" },
+        new Role { Id = 2, Name = "Instructors" },
         new Role { Id = 3, Name = "FacultySecretary" }
     );
         }

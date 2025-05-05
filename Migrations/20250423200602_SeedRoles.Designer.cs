@@ -197,7 +197,7 @@ namespace ResitExam.Migrations
                         new
                         {
                             Id = 2,
-                            Name = "Teacher"
+                            Name = "Instructor"
                         },
                         new
                         {
