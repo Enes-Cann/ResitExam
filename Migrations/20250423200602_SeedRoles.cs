@@ -97,7 +97,7 @@ namespace ResitExam.Migrations
                 values: new object[,]
                 {
                     { 1, "Student" },
-                    { 2, "Teacher" },
+                    { 2, "Instructor" },
                     { 3, "FacultySecretary" }
                 });
 

@@ -12,18 +12,32 @@ using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// -------------------- DATABASE --------------------
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
         ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection")));
 });
+
+// -------------------- CONTROLLERS --------------------
 builder.Services.AddControllers();
 builder.Services.AddControllers().AddJsonOptions(x =>
 {
     x.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-    
 });
 
+// -------------------- CORS --------------------
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", builder =>
+    {
+        builder.WithOrigins("http://localhost:8080") // Vue.js dev sunucusu
+               .AllowAnyHeader()
+               .AllowAnyMethod();
+    });
+});
+
+// -------------------- SWAGGER --------------------
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -56,6 +70,7 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+// -------------------- DEPENDENCY INJECTION --------------------
 builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<IInstructorService, InstructorService>();
@@ -63,9 +78,9 @@ builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 builder.Services.AddScoped<IResitExamRepository, ResitExamRepository>();
 builder.Services.AddScoped<IInstructorRepository, InstructorRepository>();
-
 builder.Services.AddScoped<JwtService>();
-// JWT AUTHENTICATION
+
+// -------------------- JWT AUTHENTICATION --------------------
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -81,9 +96,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 builder.Configuration["Jwt:Key"] ?? throw new InvalidOperationException("JWT key not found")))
         };
     });
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// -------------------- MIDDLEWARE --------------------
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -91,8 +107,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseAuthentication(); //JWT doğrulama
+app.UseCors("AllowFrontend");       // <--- CORS middleware burada!
+app.UseAuthentication();            // <--- JWT middleware
 app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();

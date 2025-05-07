@@ -20,8 +20,8 @@ public class JwtService
         throw new Exception("JWT Key is not configured!");
         var claims = new[]
         {
-            new Claim(ClaimTypes.Name, username),
-            new Claim(ClaimTypes.Role, role)
+            new Claim("username", username),
+            new Claim("role", role.ToLower())
         };
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
