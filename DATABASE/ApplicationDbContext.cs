@@ -15,6 +15,7 @@ namespace ResitExam.DATABASE
         public DbSet<Role> Roles { get; set; }
         public DbSet<FacultySecretary> FacultySecretaries { get; set; }
 
+public DbSet<CourseStudent> CourseStudents { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -28,9 +29,26 @@ namespace ResitExam.DATABASE
             
             modelBuilder.Entity<Role>().HasData(
         new Role { Id = 1, Name = "Student" },
-        new Role { Id = 2, Name = "Instructor" },
+        new Role { Id = 2, Name = "Instructors" },
         new Role { Id = 3, Name = "FacultySecretary" }
     );
+    modelBuilder.Entity<CourseStudent>()
+    .HasKey(cs => new { cs.CourseId, cs.StudentId });
+
+modelBuilder.Entity<CourseStudent>()
+    .HasOne(cs => cs.Course)
+    .WithMany(c => c.CourseStudents)
+    .HasForeignKey(cs => cs.CourseId);
+
+modelBuilder.Entity<CourseStudent>()
+    .HasOne(cs => cs.Student)
+    .WithMany(s => s.CourseStudents)
+    .HasForeignKey(cs => cs.StudentId);
+
+modelBuilder.Entity<CourseStudent>()
+    .Property(cs => cs.LetterGrade)
+    .HasConversion<int>();
+
         }
 
     }    

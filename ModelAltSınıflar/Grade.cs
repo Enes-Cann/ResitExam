@@ -2,5 +2,5 @@
 
 public enum Grade
 {
-    AA, AB, BA, BB, BC, CC, DC, DD, FF
+      AA, BA, BB, CB, CC, DC, DD, FD, FF, DZ
 }

@@ -4,6 +4,7 @@ using ResitExam.DtoObj;
 
 namespace ResitExam.CONTROLLERS.Controllers
 {
+    
     [Route("api/[controller]")]
     [ApiController]
     public class CourseController : Controller
@@ -47,6 +48,40 @@ namespace ResitExam.CONTROLLERS.Controllers
                 return StatusCode(500, $"💥 Internal Server Error: {ex.Message}");
             }
         }
+        [HttpGet("GetCoursesByInstructorId")]
+public IActionResult GetCoursesByInstructorId([FromQuery] int instructorId)
+{
+    try
+    {
+        var courses = _courseService.GetAllCourses()
+            .Where(c => c.InstructorId == instructorId)
+            .Select(c => new {
+                c.Id,
+                c.CourseCode,
+                c.Name
+            })
+            .ToList();
+
+        return Ok(courses);
+    }
+    catch (Exception ex)
+    {
+        return StatusCode(500, $"Internal Server Error: {ex.Message}");
+    }
+}
+
+[HttpPost("UpdateStudentGrade")]
+public IActionResult UpdateStudentGrade([FromBody] CourseStudentUpdateDto model)
+{
+    var result = _courseService.UpdateStudentGrade(model);
+
+    if (!result)
+        return NotFound("Öğrenci bu derse kayıtlı değil.");
+
+    return Ok(new { message = "Not başarıyla güncellendi." });
+}
+
+
     }
 
  

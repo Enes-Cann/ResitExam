@@ -11,6 +11,7 @@ public class Student
     // int StudentId
     public List<Course> Courses     { get; set; } = [];
     //TODO:ResitExamListesi tutacak
-    
+    public ICollection<CourseStudent> CourseStudents { get; set; }
+
 
 }

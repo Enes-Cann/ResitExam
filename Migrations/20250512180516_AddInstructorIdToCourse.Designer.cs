@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ResitExam.DATABASE;
 
@@ -11,9 +12,11 @@ using ResitExam.DATABASE;
 namespace ResitExam.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250512180516_AddInstructorIdToCourse")]
+    partial class AddInstructorIdToCourse
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -96,24 +99,6 @@ namespace ResitExam.Migrations
                     b.HasIndex("InstructorId");
 
                     b.ToTable("Courses");
-                });
-
-            modelBuilder.Entity("ResitExam.MODEL.CourseStudent", b =>
-                {
-                    b.Property<int>("CourseId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("LetterGrade")
-                        .HasColumnType("int");
-
-                    b.HasKey("CourseId", "StudentId");
-
-                    b.HasIndex("StudentId");
-
-                    b.ToTable("CourseStudents");
                 });
 
             modelBuilder.Entity("ResitExam.MODEL.Instructor", b =>
@@ -291,25 +276,6 @@ namespace ResitExam.Migrations
                     b.Navigation("Instructor");
                 });
 
-            modelBuilder.Entity("ResitExam.MODEL.CourseStudent", b =>
-                {
-                    b.HasOne("ResitExam.MODEL.Course", "Course")
-                        .WithMany("CourseStudents")
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ResitExam.MODEL.Student", "Student")
-                        .WithMany("CourseStudents")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Course");
-
-                    b.Navigation("Student");
-                });
-
             modelBuilder.Entity("ResitExam.MODEL.ResitExamObj", b =>
                 {
                     b.HasOne("ResitExam.MODEL.Course", null)
@@ -350,8 +316,6 @@ namespace ResitExam.Migrations
 
             modelBuilder.Entity("ResitExam.MODEL.Course", b =>
                 {
-                    b.Navigation("CourseStudents");
-
                     b.Navigation("ResitExam")
                         .IsRequired();
                 });
@@ -359,11 +323,6 @@ namespace ResitExam.Migrations
             modelBuilder.Entity("ResitExam.MODEL.Instructor", b =>
                 {
                     b.Navigation("Courses");
-                });
-
-            modelBuilder.Entity("ResitExam.MODEL.Student", b =>
-                {
-                    b.Navigation("CourseStudents");
                 });
 
             modelBuilder.Entity("Role", b =>

@@ -1,11 +1,11 @@
 ﻿using ResitExam.DtoObj;
-using ResitExam.MODEL;
 
-namespace ResitExam.CONTROLLERS.Service;
-
-public interface IStudentService
+namespace ResitExam.CONTROLLERS.Service
 {
-    List<Course> GetAllCoursesListByStudent(int studentId);
-    //bool RemoveResitExamFromStudent(int studentId, int courseId);   
-    void IsStudentTakeResitExam(int studentId);
+    public interface IStudentService
+    {
+        List<CourseDto> GetAllCoursesListByStudent(int studentId);
+        void IsStudentTakeResitExam(int studentId);
+        List<StudentCourseResitDto> GetStudentResitGrades(int studentId);
+    }
 }

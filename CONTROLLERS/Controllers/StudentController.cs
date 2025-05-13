@@ -24,6 +24,13 @@ namespace ResitExam.CONTROLLERS.Controllers
             return Ok(_studentService.GetAllCoursesListByStudent(studentId));
           
         }
+
+        [HttpGet("GetResitGrades")]
+public IActionResult GetResitGrades([FromQuery] int studentId)
+{
+    return Ok(_studentService.GetStudentResitGrades(studentId));
+}
+
        
 
         //TODO:ResitExam butondan gelen değere göre resit exam list oluşturalacak
